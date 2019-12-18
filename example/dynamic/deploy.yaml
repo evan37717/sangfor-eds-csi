@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-nas
+  labels:
+    app: centos7
+spec:
+  selector:
+    matchLabels:
+      app: centos7
+  template:
+    metadata:
+      labels:
+        app: centos7
+    spec:
+      tolerations:
+      - key: node-role.kubernetes.io/master
+        operator: Exists
+        effect: NoSchedule
+      containers:
+      - name: centos7
+        image: centos:7.4.1708
+        imagePullPolicy: IfNotPresent
+        command: [ "/bin/bash", "-ce", "tail -f /dev/null" ]
+        volumeMounts:
+          - name: nas-csi-pvc-sp
+            mountPath: "/data"
+      volumes:
+        - name: nas-csi-pvc-sp
+          persistentVolumeClaim:
+            claimName: nas-csi-pvc-sp

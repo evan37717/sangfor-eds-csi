@@ -1,0 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: eds-nas-sp
+mountOptions:
+- nolock,tcp
+- vers=3
+parameters:
+  server: "10.212.22.213:/sf/hy_test"  # nfs server
+  archiveOnDelete: "false"
+provisioner: eds.csi.sangfor.com
+reclaimPolicy: Delete

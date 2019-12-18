@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nas-csi-pv-static
+  labels:
+    eds-pvname: nas-csi-pv-static
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  csi:
+    driver: eds.csi.sangfor.com
+    # volumeHandle set same value as pvname
+    volumeHandle: nas-csi-pv-static
+    volumeAttributes:
+      server: "10.212.22.213"
+      path: "/sf/hy_test1"
+      vers: "3"
