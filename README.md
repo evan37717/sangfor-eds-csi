@@ -89,9 +89,7 @@ Login to you EDS dashboard, your dashboard address should be https://your_domain
 ### Configure NFS
 ![configure-nfs-gateway](https://github.com/evan37717/sangfor-eds-csi/blob/master/images/configure-nfs-gateway.png)
 
-## dynamic volume
-
-### Edit yaml for StorageClass
+## Edit yaml for StorageClass
 ```
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
@@ -106,11 +104,11 @@ parameters:
 provisioner: eds.csi.sangfor.com
 reclaimPolicy: Delete
 ```
-### Create storageclass
+## Create storageclass
 
 `$ kubectl create -f storageclass.yaml`
 
-### Edit yaml for PersistentVolumeClaim
+## Edit yaml for PersistentVolumeClaim
 ```
 kind: PersistentVolumeClaim
 apiVersion: v1
@@ -124,10 +122,10 @@ spec:
     requests:
       storage: 20Gi
 ```
-### Create pvc
+## Create pvc
 `$ kubectl create -f pvc.yaml`
 
-### Verify pv & pvc
+## Verify pv & pvc
 
 Run kubectl check command
 
@@ -143,7 +141,7 @@ NAME             STATUS   VOLUME                                     CAPACITY   
 nas-csi-pvc-sp   Bound    nas-7e419d5e-1c8b-11ea-a080-fefcfeaed50a   20Gi       RWO            eds-nas-sp     5d9h
 ```
 
-### Edite yaml for deploy
+## Edite yaml for deploy
 ```
 apiVersion: apps/v1
 kind: Deployment
@@ -173,114 +171,12 @@ spec:
           persistentVolumeClaim:
             claimName: nas-csi-pvc-sp
 ```
-### Create deploy
+## Create deploy
 `$ kubectl create -f deploy.yaml`
 
-### Verify deploy
+## Verify deploy
   `$ kubectl get pods`
 ```
   NAME                              READY   STATUS    RESTARTS   AGE
-deployment-nas-57947c6cd9-6b7fk   1/1     Running   0          5d9h
 deployment-nas-57947c6cd9-vwt9f   1/1     Running   0          5d9h
-```
-## Static Volume
-
-### Edit yaml for pv
-```
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: nas-csi-pv-static
-  labels:
-    eds-pvname: nas-csi-pv-static
-spec:
-  capacity:
-    storage: 5Gi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  csi:
-    driver: eds.csi.sangfor.com
-    # volumeHandle set same value as pvname
-    volumeHandle: nas-csi-pv-static
-    volumeAttributes:
-      server: "10.212.22.213"
-      path: "/sf/hy_test1"
-      vers: "3"
-```
-### Create storageclass
-
-`$ kubectl create -f pv.yaml`
-
-### Edit yaml for PersistentVolumeClaim
-```
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: nas-csi-pvc-static
-spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 5Gi
-  selector:
-    matchLabels:
-      eds-pvname: nas-csi-pv-static
-```
-### Create pvc
-`$ kubectl create -f pvc.yaml`
-
-### Verify pv & pvc
-`$ kubectl get pv`
-
-```
-NAME                CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS       CLAIM                        STORAGECLASS   REASON   AGE
-nas-csi-pv-static    5Gi        RWO            Retain           Bound    default/nas-csi-pvc-static                             5d9h
-```
-
-`$  kubectl get pvc`
-
-```
-NAME                 STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
-nas-csi-pvc-static   Bound    nas-csi-pv-static                          5Gi        RWO                           5d9h
-```
-### Edite yaml for deploy
-```
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: deployment-nas-static
-  labels:
-    app: centos7
-spec:
-  selector:
-    matchLabels:
-      app: centos7
-  template:
-    metadata:
-      labels:
-        app: centos7
-    spec:
-      containers:
-      - name: centos7
-        image: centos:7.4.1708
-        imagePullPolicy: IfNotPresent
-        command: [ "/bin/bash", "-ce", "tail -f /dev/null" ]
-        volumeMounts:
-          - name: deployment-nas-static
-            mountPath: "/data"
-      volumes:
-        - name: deployment-nas-static
-          persistentVolumeClaim:
-            claimName: deployment-nas-static
-```
-### Create deploy
-`$ kubectl create -f deploy.yaml`
-
-### Verify deploy
-  `$ kubectl get pods`
-```
-NAME                                    READY   STATUS    RESTARTS   AGE
-deployment-nas-static-6b88f78c5-2xz4n   1/1     Running   0          5d9h
 ```
