@@ -99,7 +99,10 @@ mountOptions:
 - nolock,tcp
 - vers=3
 parameters:
-  server: "10.212.22.213:/sf/hy_test1"
+  vip: "10.212.22.213"
+  volume: "csi-test"
+  omuser: "admin"
+  ompasswd: "123456"
   archiveOnDelete: "false"
 provisioner: eds.csi.sangfor.com
 reclaimPolicy: Delete
