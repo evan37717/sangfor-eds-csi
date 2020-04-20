@@ -60,7 +60,7 @@ spec:
         imagePullPolicy: "IfNotPresent"
         args:
         - "--endpoint=$(CSI_ENDPOINT)"
-        - "--v=5"
+        - "--loglevel=info"
         - "--nodeid=localhost"
         - "--driver=eds.csi.sangfor.com"
         env:
