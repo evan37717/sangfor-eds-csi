@@ -31,7 +31,7 @@ In this section, you will learn how to deploy the EDS CSI nasplugin and some nec
 | cluster     | version      |
 | ------------| ------------ |
 | Kubernetes  | 1.14+        |
-| Sangfor EDS | 3.0.0+       |
+| Sangfor EDS | 3.0.3R1+       |
 
 ## Deploy CSI plugins
 
