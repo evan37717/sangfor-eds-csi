@@ -19,7 +19,7 @@ You can get latest version of Sangfor EDS CSI nasplugin at docker hub by running
 
 download from `http://nas.sangfor.org:5000/sharing/cwq1mDxL2` or `docker pull registry.cn-sz.sangfor.com/eds/csi-nasplugin`
 
-### if you download csi images, you should 
+### if you download eds-csi plugin, you should load images manually
 
 `$ tar -zxf eds-csi-v1.14.6-09718fd-202004301500.tar.gz && cd eds-csi-v1.14.6-09718fd-202004301500`
 
