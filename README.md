@@ -17,7 +17,13 @@ Before to go, you should have installed Sangfor EDS cluster.
 
 You can get latest version of Sangfor EDS CSI nasplugin at docker hub by running docker CLI
 
-`$ docker pull registry.cn-sz.sangfor.com/eds/csi-nasplugin`
+download from `http://nas.sangfor.org:5000/sharing/cwq1mDxL2` or `$ docker pull registry.cn-sz.sangfor.com/eds/csi-nasplugin`
+
+## if you download csi images, you should 
+
+`$ tar -zxf eds-csi-v1.14.6-09718fd-202004301500.tar.gz && cd eds-csi-v1.14.6-09718fd-202004301500`
+
+`$ docker load -i csi-provisioner.tar && docker load -i csi-node-driver-registrar.tar && docker load -i csi-nasplugin.tar.gz`
 
 # Configuration Requirements
 
