@@ -127,7 +127,7 @@ metadata:
   name: nas-csi-pvc-sp
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   storageClassName: eds-nas-sp
   resources:
     requests:
