@@ -17,7 +17,7 @@ Before to go, you should have installed Sangfor EDS cluster.
 
 You can get latest version of Sangfor EDS CSI nasplugin at docker hub by running docker CLI
 
-download from `http://nas.sangfor.org:5000/sharing/cwq1mDxL2` or `docker pull registry.cn-sz.sangfor.com/eds/csi-nasplugin`
+download from `http://nas.sangfor.org:5000/sharing/cwq1mDxL2`
 
 ### if you download eds-csi plugin, you should load images manually
 
@@ -39,7 +39,7 @@ In this section, you will learn how to deploy the EDS CSI nasplugin and some nec
 | cluster     | version      |
 | ------------| ------------ |
 | Kubernetes  | 1.14+        |
-| Sangfor EDS | 3.0.3R1+       |
+| Sangfor EDS | 3.0.4+       |
 
 ## Deploy CSI plugins
 
@@ -112,7 +112,7 @@ parameters:
   omuser: "admin"
   ompasswd: "123456"
   archiveOnDelete: "false"
-provisioner: eds.csi.sangfor.com
+provisioner: eds.csi.file.sangfor.com
 reclaimPolicy: Delete
 ```
 ## Create storageclass
